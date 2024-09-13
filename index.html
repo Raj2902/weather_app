@@ -22,7 +22,7 @@
     <link href="output.css" rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     <!--Added links to open street map.-->
     <link
@@ -60,8 +60,11 @@
               <!--the options for the cities will be coming dynamically through api and will be appended here using js-->
             </datalist>
             <span class="history_dropdown"
-              >History
-              <i class="fa fa-toggle-down" onclick="toggle_history(event)"></i
+              >History&nbsp;
+              <i
+                class="fa-solid fa-caret-down"
+                onclick="toggle_history(event)"
+              ></i
             ></span>
             <fieldset class="search_history p-2">
               <ul>
@@ -100,14 +103,22 @@
             >
             <div class="up-left">
               <div class="city_date flex flex-wrap">
+                <!--inside is a dummy data-->
                 <h2 class="city-name">London</h2>
                 <span class="date">(2024-4-23)</span>
               </div>
               <p>
+                <i class="fa-solid fa-temperature-three-quarters"></i>&nbsp;
                 Temperature : <span id="temp">7.06</span><span> &#8451;</span>
               </p>
-              <p>Wind : <span id="wind">2.85</span><span> M/S</span></p>
-              <p>Humidity : <span id="humidity">88</span><span> %</span></p>
+              <p>
+                <i class="fa-solid fa-wind"></i>&nbsp;Wind :
+                <span id="wind">2.85</span><span> M/S</span>
+              </p>
+              <p>
+                <i class="fa-solid fa-droplet"></i>&nbsp;Humidity :
+                <span id="humidity">88</span><span> %</span>
+              </p>
             </div>
             <div class="up-right">
               <img

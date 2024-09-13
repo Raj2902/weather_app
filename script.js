@@ -14,7 +14,9 @@ function submitForm(event) {
     // storing recently searched cities in the localstorage
     addHistory(value);
   }
+  //display history dropdown arrow
   document.querySelector(".history_dropdown").style = "display:block";
+  //call all the history last 5
   getHistory();
   event.target.reset();
 }
@@ -58,7 +60,10 @@ function getFetchData(value, lat, lon) {
         run_forecastData(data.coord.lat, data.coord.lon);
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      alert(err);
+    });
 }
 
 //hitting the forecast api for five days weather forecast
@@ -81,6 +86,7 @@ async function forecastData(lat, lon) {
     });
   } catch (err) {
     console.log(err);
+    alert(err);
   }
 }
 
@@ -109,6 +115,7 @@ async function fetchData(city, lat, lon) {
       });
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   } else if (lat && lon && !city) {
     try {
@@ -132,6 +139,7 @@ async function fetchData(city, lat, lon) {
       });
     } catch (err) {
       console.log(err);
+      alert(err);
     }
   }
 }
@@ -218,6 +226,11 @@ function run_forecastData(lat, lon) {
             filtered_forecast_data[0].dt_txt.split(" ")[0];
           td_element.appendChild(span_element);
           let div_element = document.createElement("div");
+          //paragraph for weather description
+          let para0 = document.createElement("p");
+          para0.innerHTML = filtered_forecast_data[0].weather[0].description;
+          para0.style = "text-align:end";
+          div_element.appendChild(para0);
           let img_element = document.createElement("img");
           img_element.src = `https://openweathermap.org/img/wn/${filtered_forecast_data[0].weather[0].icon}@2x.png`;
           div_element.appendChild(img_element);
@@ -225,7 +238,8 @@ function run_forecastData(lat, lon) {
           //paragraph for temprature.
           let para1 = document.createElement("p");
           let span_element2 = document.createElement("span");
-          span_element2.innerHTML = "Temprature : ";
+          span_element2.innerHTML =
+            "<i class='fa-solid fa-temperature-three-quarters'></i>&nbsp;Temprature : ";
           para1.appendChild(span_element2);
           let span_element3 = document.createElement("span");
           span_element3.innerHTML = (
@@ -239,7 +253,8 @@ function run_forecastData(lat, lon) {
           //paragraph for Wind.
           let para2 = document.createElement("p");
           let span_element2b = document.createElement("span");
-          span_element2b.innerHTML = "Wind : ";
+          span_element2b.innerHTML =
+            "<i class='fa-solid fa-wind'></i>&nbsp;Wind : ";
           para2.appendChild(span_element2b);
           let span_element3b = document.createElement("span");
           span_element3b.innerHTML =
@@ -252,7 +267,8 @@ function run_forecastData(lat, lon) {
           //paragraph for Humidity.
           let para3 = document.createElement("p");
           let span_element2c = document.createElement("span");
-          span_element2c.innerHTML = "Humidity : ";
+          span_element2c.innerHTML =
+            "<i class='fa-solid fa-droplet'></i>&nbsp;Humidity : ";
           para3.appendChild(span_element2c);
           let span_element3c = document.createElement("span");
           span_element3c.innerHTML =
@@ -268,7 +284,10 @@ function run_forecastData(lat, lon) {
         }
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      alert(err);
+    });
 }
 
 //get all the cites
@@ -335,11 +354,11 @@ if (!localStorage.getItem("searched_cities")) {
 function toggle_history(event) {
   let toggle_icon = event.target.classList[1];
   getHistory();
-  if (toggle_icon == "fa-toggle-down") {
-    event.target.classList = " fa fa-toggle-up";
+  if (toggle_icon == "fa-caret-down") {
+    event.target.classList = " fa-solid fa-caret-up";
     document.querySelector(".search_history").style = "display:block";
   } else {
-    event.target.classList = " fa fa-toggle-down";
+    event.target.classList = " fa-solid fa-caret-down";
     document.querySelector(".search_history").style = "display:none";
   }
 }
@@ -368,12 +387,16 @@ function showPosition(position) {
   //run_forecastData function to get the forecast of the next 5 days.
   addHistory(
     JSON.stringify({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude,
+      lat: position.coords.latitude.toFixed(2),
+      lon: position.coords.longitude.toFixed(2),
     })
   );
   getHistory();
   getFetchData(undefined, position.coords.latitude, position.coords.longitude);
+  //display history dropdown arrow
+  document.querySelector(".history_dropdown").style = "display:block";
+  //get all the history last 5.
+  getHistory();
 }
 
 //Note : I'm not using Google map api because ot asks for a biller account.
@@ -392,7 +415,17 @@ var marker; // Declare a variable to store the marker , i am placing it here for
 //be used anywhere in the code by the concept of hoisting.
 
 map.on("click", function (e) {
+  addHistory(
+    JSON.stringify({
+      lat: e.latlng.lat.toFixed(2),
+      lon: e.latlng.lng.toFixed(2),
+    })
+  );
+  getHistory();
   getFetchData(undefined, e.latlng.lat, e.latlng.lng);
+  //display history dropdown arrow
+  document.querySelector(".history_dropdown").style = "display:block";
+  getHistory();
 });
 
 //implementing marker on map i am making it as a function sos that i can reuse it again.

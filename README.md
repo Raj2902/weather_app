@@ -18,3 +18,8 @@ How to use the site:
 
 Other details:
 1)live project link:https://weather-app-rust-alpha-48.vercel.app/ 2) Github repo link :https://github.com/Raj2902/weather_app
+
+Project setup
+
+1. run npm install
+2. use live server extension in vs code to run index.html file.
