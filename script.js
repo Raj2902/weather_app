@@ -66,7 +66,7 @@ async function forecastData(lat, lon) {
   try {
     //console.log("working", lat, " ", lon);
     let res = await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     );
     if (!res.ok) {
       throw new Error("Network response was not ok");
@@ -90,7 +90,7 @@ async function fetchData(city, lat, lon) {
   if (city && !lat && !lon) {
     try {
       let res = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_KEY}`
       );
       if (!res.ok) {
         if (res.status == "404") {
