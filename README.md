@@ -17,4 +17,4 @@ How to use the site:
 4. Last 5 cities searches will be in the history dropdown.
 
 Other details:
-1)live project link:https://weather-app-orpin-ten-73.vercel.app/ 2) Github repo link :https://github.com/Raj2902/weather_app
+1)live project link:https://weather-app-rust-alpha-48.vercel.app/ 2) Github repo link :https://github.com/Raj2902/weather_app
